@@ -1,0 +1,65 @@
+<div class="card">
+  <span class="badge">@Year</span>
+  <h3>@Name</h3>
+  <p>@Summary</p>
+  <div class="kpi">
+    @if (RequiresPassword)
+    {
+        @if (isUnlocked && !string.IsNullOrWhiteSpace(Link))
+        {
+            <a class="box" href="@Link" target="_blank" rel="noopener">Download</a>
+        }
+        else
+        {
+            <div class="download-lock">
+                <input type="password" placeholder="Digite a senha" @bind="passwordInput" class="password-input" />
+                <button @onclick="CheckPassword" class="unlock-btn box">Liberar</button>
+                @if (showError)
+                {
+                    <span class="error-msg">Senha incorreta!</span>
+                }
+            </div>
+        }
+    }
+    else if (!string.IsNullOrWhiteSpace(Link))
+    {
+        <a class="box" href="@Link" target="_blank" rel="noopener">Download</a>
+    }
+    @if (!string.IsNullOrWhiteSpace(Role) && string.IsNullOrWhiteSpace(RoleLink))
+    { 
+        <div class="box">@Role</div>
+    }
+    else if (!string.IsNullOrWhiteSpace(Role) && !string.IsNullOrWhiteSpace(RoleLink))
+    {
+        <a class="box" href="@RoleLink" target="_blank" rel="noopener">@Role</a>
+    }
+  </div>
+</div>
+
+@code {
+  [Parameter] public string Name { get; set; } = "";
+  [Parameter] public string Summary { get; set; } = "";
+  [Parameter] public string Year { get; set; } = "";
+  [Parameter] public string Link { get; set; } = "";
+  [Parameter] public string Role { get; set; } = "";
+  [Parameter] public string RoleLink { get; set; } = "";
+  [Parameter] public string? Password { get; set; } = null;
+
+  private string passwordInput = string.Empty;
+  private bool isUnlocked = false;
+  private bool showError = false;
+  private bool RequiresPassword => !string.IsNullOrWhiteSpace(Password);
+
+  private void CheckPassword()
+  {
+    if (passwordInput == Password)
+    {
+        isUnlocked = true;
+        showError = false;
+    }
+    else
+    {
+        showError = true;
+    }
+  }
+}

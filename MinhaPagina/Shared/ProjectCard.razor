@@ -1,0 +1,18 @@
+
+<div class="card">
+  <span class="badge">@Year</span>
+  <h3>@Name</h3>
+  <p>@Summary</p>
+  <div class="kpi">
+    @if (!string.IsNullOrWhiteSpace(Link)) { <a class="box" href="@Link" target="_blank" rel="noopener">repositório</a> }
+    @if (!string.IsNullOrWhiteSpace(Role)) { <div class="box">@Role</div> }
+  </div>
+</div>
+
+@code {
+  [Parameter] public string Name { get; set; } = "";
+  [Parameter] public string Summary { get; set; } = "";
+  [Parameter] public string Year { get; set; } = "";
+  [Parameter] public string Link { get; set; } = "";
+  [Parameter] public string Role { get; set; } = "";
+}
