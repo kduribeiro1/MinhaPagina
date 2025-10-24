@@ -1,0 +1,23 @@
+[
+  {
+    "Name": "UI Tech Circuit",
+    "Summary": "Biblioteca de estilos inspirada em circuitos/tecnologia (este site usa).",
+    "Year": "2025",
+    "Link": "",
+    "Role": ""
+  },
+  {
+    "Name": "Templates Blazor",
+    "Summary": "Boilerplates de layout, autenticação e CRUD.",
+    "Year": "2025",
+    "Link": "https://github.com/kduribeiro1",
+    "Role": "Código aberto"
+  },
+  {
+    "Name": "Games & Prototipagem",
+    "Summary": "Pequenas POCs e protótipos de jogabilidade.",
+    "Year": "2024",
+    "Link": "",
+    "Role": ""
+  }
+]

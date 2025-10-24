@@ -1,51 +1,92 @@
 @page "/"
+@inject HttpClient Http
+
 <section class="hero">
-  <div class="inner container">
-    <div>
-      <h1 class="h-title">Soluções modernas em <span style="color:var(--accent)">Blazor</span> e .NET</h1>
-      <p class="h-sub">Sistemas de alta performance.</p>
-      <div class="cta-row">
-        <a class="btn acc" href="/sistemas">Ver sistemas</a>
-        <a class="btn" href="/projetos">Portfólio</a>
-        <a class="btn" href="/contato">Contato</a>
-      </div>
-      <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
-        <span class="tag">C#</span><span class="tag">.Net</span><span class="tag">ASP.NET Core</span><span class="tag">Blazor</span><span class="tag">WinForms</span><span class="tag">WPF</span><span class="tag">SQL Server / MySQL</span><span class="tag">Docker</span>
-      </div>
+    <div class="inner container">
+        <div>
+            <h1 class="h-title">Soluções modernas em <span style="color:var(--accent)">Blazor</span> e .NET</h1>
+            <p class="h-sub">Sistemas de alta performance.</p>
+            <div class="cta-row">
+                <a class="btn acc" href="/sistemas">Ver sistemas</a>
+                <a class="btn" href="/projetos">Portfólio</a>
+                <a class="btn" href="/contato">Contato</a>
+            </div>
+            <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
+                <span class="tag">C#</span><span class="tag">.Net</span><span class="tag">ASP.NET Core</span><span class="tag">Blazor</span><span class="tag">WinForms</span><span class="tag">WPF</span><span class="tag">SQL Server / MySQL</span><span class="tag">Docker</span>
+            </div>
+        </div>
+        <div>
+            <div class="card">
+                <h3>O que eu entrego</h3>
+                <ul>
+                    <li>Frontend em Blazor WASM com UX limpa e responsiva</li>
+                    <li>APIs .NET seguras e escaláveis</li>
+                    <li>Painéis, relatórios e integrações</li>
+                    <li>Hospedagem e deploy otimizado</li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <div>
-      <div class="card">
-        <h3>O que eu entrego</h3>
-        <ul>
-          <li>Frontend em Blazor WASM com UX limpa e responsiva</li>
-          <li>APIs .NET seguras e escaláveis</li>
-          <li>Painéis, relatórios e integrações</li>
-          <li>Hospedagem e deploy otimizado</li>
-        </ul>
-      </div>
-    </div>
-  </div>
 </section>
 
 <section class="section container">
-  <h2>
-    <span style="color:var(--accent);font-weight:700;">Em construção</span>
-  </h2>
-  <p class="h-sub">
-    Este portal está sendo desenvolvido para reunir sistemas e projetos com alta qualidade e tecnologia moderna.<br>
-    Novos recursos e conteúdos serão publicados em breve!
-  </p>
-  <div class="grid">
-    @* Cards de sistemas e projetos aqui *@
-  </div>
+    <h2>
+        <span style="color:var(--accent);font-weight:700;">Em construção</span>
+    </h2>
+    <p class="h-sub">
+        Este portal está sendo desenvolvido para reunir sistemas e projetos com alta qualidade e tecnologia moderna.<br>
+        Novos recursos e conteúdos serão publicados em breve!
+    </p>
+    <div class="grid">
+    </div>
 </section>
 
 <section class="section container">
-  <h2>Destaques recentes</h2>
-  <p>Sistemas e projetos que representam o estilo e a qualidade do meu trabalho.</p>
-  <div class="grid">
-    @* <SystemCard Title="Intranet RH" Description="Portal de colaboradores com holerite, ponto, férias e documentos." Category="Sistema" Stack="Blazor + .NET + SQL" Status="Em desenvolvimento"/> *@
-    @* <SystemCard Title="Estoque Online" Description="Controle de produtos, imagens e relatórios — pronto para cloud." Category="Sistema" Stack="Blazor + Web API" Status="Proposta"/> *@
-    @* <ProjectCard Name="Portal de Aplicações" Summary="Hub de acesso rápido aos sistemas publicados." Year="2025" Role="Arquitetura & UI"/> *@
-  </div>
+    <h2>Destaques recentes</h2>
+    <p>Sistemas e projetos que representam o estilo e a qualidade do meu trabalho.</p>
+    <div class="grid">
+        @if (destaques == null)
+        {
+            <p>Carregando destaques...</p>
+        }
+        else
+        {
+            @foreach (var destaque in destaques)
+            {
+                if (destaque.Tipo == "Sistema")
+                {
+                    var sistema = JsonConvert.DeserializeObject<Sistema>(destaque.Dados);
+                    if (sistema != null)
+                    {
+                        <SystemCard Title="@sistema.Title" Description="@sistema.Description" Category="@sistema.Category" Stack="@sistema.Stack" Status="@sistema.Status" />
+                    }
+                }
+                else if (destaque.Tipo == "Projeto")
+                {
+                    var projeto = JsonConvert.DeserializeObject<Projeto>(destaque.Dados);
+                    if (projeto != null)
+                    {
+                        <ProjectCard Name="@projeto.Name" Summary="@projeto.Summary" Year="@projeto.Year" Role="@projeto.Role" Link="@projeto.Link" />
+                    }
+                }
+                else if (destaque.Tipo == "Download")
+                {
+                    var download = JsonConvert.DeserializeObject<Download>(destaque.Dados);
+                    if (download != null)
+                    {
+                        <DownloadCard Name="@download.Name" Summary="@download.Summary" Year="@download.Year" Link="@download.Link" Role="@download.Role" RoleLink="@download.RoleLink" Password="@download.PasswordString" />
+                    }
+                }
+            }
+        }
+    </div>
 </section>
+
+@code {
+    private List<DestaqueItem>? destaques;
+
+    protected override async Task OnInitializedAsync()
+    {
+        destaques = await Http.GetFromJsonAsync<List<DestaqueItem>>("dados/destaques.json");
+    }
+}

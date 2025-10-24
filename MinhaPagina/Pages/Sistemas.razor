@@ -1,11 +1,29 @@
 @page "/sistemas"
+@inject HttpClient Http
+
 <section class="section container">
-<h1>Sistemas</h1>
-<p class="h-sub">Catálogo de soluções que posso entregar e personalizar para o seu negócio.</p>
-<div class="grid">
-  @* <SystemCard Title="Intranet RH" Description="Solicitação de férias, holerite, ponto e documentos." Stack="Blazor/.NET/SQL" Status="Roadmap 2025"/> *@
-  @* <SystemCard Title="Estoque Online" Description="Cadastro com upload de imagens, relatórios e perfis." Stack="Blazor + API" Status="Proposta"/> *@
-  @* <SystemCard Title="Gestão de Ordens" Description="Fluxo de ordens de serviço, SLA e notificações." Stack="Blazor + SignalR" Status="MVP"/> *@
-  @* <SystemCard Title="Dashboard Operacional" Description="Métricas em tempo real, gráficos e exportações." Stack="Blazor + Charts" Status="MVP"/> *@
-</div>
+    <h1>Sistemas</h1>
+    <p class="h-sub">Catálogo de soluções que posso entregar e personalizar para o seu negócio.</p>
+    <div class="grid">
+        @if (sistemas == null)
+        {
+            <p>Carregando sistemas...</p>
+        }
+        else
+        {
+            @foreach (var sistema in sistemas)
+            {
+                <SystemCard Title="@sistema.Title" Description="@sistema.Description" Stack="@sistema.Stack" Status="@sistema.Status" Category="@sistema.Category" />
+            }
+        }
+    </div>
 </section>
+
+@code {
+    private List<Sistema>? sistemas;
+
+    protected override async Task OnInitializedAsync()
+    {
+        sistemas = await Http.GetFromJsonAsync<List<Sistema>>("dados/sistemas.json");
+    }
+}

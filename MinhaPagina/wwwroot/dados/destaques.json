@@ -1,0 +1,14 @@
+[
+  {
+    "Tipo": "Sistema",
+    "Dados": "{\"Title\":\"Intranet RH\",\"Description\":\"Portal de colaboradores com holerite, ponto, férias e documentos.\",\"Category\":\"Sistema\",\"Stack\":\"Blazor + .NET + SQL\",\"Status\":\"Em desenvolvimento\"}"
+  },
+  {
+    "Tipo": "Sistema",
+    "Dados": "{\"Title\":\"Estoque Online\",\"Description\":\"Controle de produtos, imagens e relatórios — pronto para cloud.\",\"Category\":\"Sistema\",\"Stack\":\"Blazor + Web API\",\"Status\":\"Proposta\"}"
+  },
+  {
+    "Tipo": "Projeto",
+    "Dados": "{\"Name\":\"Portal de Aplicações\",\"Summary\":\"Hub de acesso rápido aos sistemas publicados.\",\"Year\":\"2025\",\"Role\":\"Arquitetura & UI\",\"Link\":\"\"}"
+  }
+]

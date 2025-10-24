@@ -1,0 +1,30 @@
+[
+  {
+    "Title": "Intranet RH",
+    "Description": "Solicitação de férias, holerite, ponto e documentos.",
+    "Category": "Sistema",
+    "Stack": "Blazor/.NET/SQL",
+    "Status": "Roadmap 2025"
+  },
+  {
+    "Title": "Estoque Online",
+    "Description": "Cadastro com upload de imagens, relatórios e perfis.",
+    "Category": "Sistema",
+    "Stack": "Blazor + API",
+    "Status": "Proposta"
+  },
+  {
+    "Title": "Gestão de Ordens",
+    "Description": "Fluxo de ordens de serviço, SLA e notificações.",
+    "Category": "Sistema",
+    "Stack": "Blazor + SignalR",
+    "Status": "MVP"
+  },
+  {
+    "Title": "Dashboard Operacional",
+    "Description": "Métricas em tempo real, gráficos e exportações.",
+    "Category": "Sistema",
+    "Stack": "Blazor + Charts",
+    "Status": "MVP"
+  }
+]
